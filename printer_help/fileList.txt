@@ -1,0 +1,3 @@
+cncMill.dwg is the original printer autocad drawing (it's not up to date with the real thing)
+printerEEPROM.epr are the EEPROM settings for the printer that can be imported/exported by the Repetier host
+RickyPrinter.xml are the Repetier-Server settings for the printer

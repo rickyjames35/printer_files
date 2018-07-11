@@ -1,0 +1,98 @@
+#3D Printer Extruder Motor to Cat5 to Driver (1st Ethernet) //run on 12v
+Blue=GreeWhite=A-
+Red=Green=A+
+Green=BlueWhite=B+
+Black=Blue=B-
+
+#3D Printer Extruder Thermistor to Cat5 (1st Ethernet)
+White=Brown //doesn't matter which way they are wired, plug into temp1 on PCB, J2 (2nd from left)
+OtherWhite=BrownWhite
+
+#3D Printer Extruder Fan to Cat5 (1st Ethernet)
+Red/Positve=Orange //12v always on
+Black/Negative=OrangeWhite //Drain of MOSFTE, J5 (5th from left), left terminal (For some reason the fan is currently not working)
+
+#Cat5 Left to Right (1st & 2nd Ethernet)
+OrangeWhite, Orange, GreenWhite, Green, BlueWhite, Blue, BrownWhite, Brown 
+
+Blower Fan (2nd Ethernet)
+Red/Positve=Orange //12v
+Black/Negative=OrangeWhite //This is the wiring being controled from the MOSFET
+
+#BLTouch (2nd Ethernet)
+https://www.geeetech.com/wiki/index.php/3DTouch_Auto_Leveling_Sensor
+3-Pin Red/Positive=Green //5v
+3-Pin Brown/Negative=GreeWhite //both negatives are wired together on the touch sensor
+3-Pin Orange/Control=Blue //D5 on Arduino
+2-Pin Black/Negative=GreeWhite
+2-Pin White/Z-Min=Brown //A9 on Arduino
+
+#End Stops
+X-Max, D2, Yellow=Common, Red=Negative, Blue=Positive
+X-Min, D3, Black=Common, White=Negative, Yellow=Positive
+Y-Max, D15, Black=Common, White=Negative, Red=Positive
+Y-Min, D14, Green=Common, Blue=Negative, Red=Positive
+Z-Max, D19, Green=Common, Red=Negative, Black=Positive
+Z-Min, D18, Blue=Common, Yellow=Negative, Green=Positive
+
+#Arduino
+D5 is touch sensor contoller
+D7 is speed controller for the spindel
+ 
+A9 is the Z-Probe
+D10 is the extruder heat
+D8 is the heat bed
+A13 is the extruder temp input
+A14 is the heat bed temp input
+
+#GCode Cheat Sheet
+G1 X230 Y230 //move to bed start
+G92 X0 Y0 //set current position
+M114 //get current position
+
+M340 P2 S611 //pin down
+M340 P2 S1500 //pin up
+M340 P2 S1833 //self test
+M340 P2 S2278 //reset alarm
+
+M42 P7 S255 //spindel full on
+M42 P7 S0 //spindel off
+
+M42 P16 S255 //fan on
+M42 P16 S0 //fan off
+
+G32 S2 //Auto Level, Save to EEPROM
+M320 S1 //permanently activate auto leveling
+M321 S1 //permanently deactivate auto leveling
+
+G33 //Distortion correction
+M323 S0 //Disable correction
+M323 S0 P1 //Disable correction permanently
+M323 S1 //Enable correction
+M323 S1 P1 //Enable correction permanently
+
+G30 //Single Z-Probe (This will retrun distance to trigger at Z-Probe bed dist.)
+
+
+#How to do distortion correction
+0) Always disable auto correction, just use distortion only
+1) Disable distortion correction (M323 S0 P1, Set EEPROM: Z max length: 168.0 & Z-probe height: 0.0)
+2) Heat bed and nozzle
+3) Find the delta of the z probe and the nozzle
+4) Stick that value in EEPROM for Z-probe height
+5) Home
+6) Make sure the values in Configuration.h are correct for where it will test the bed
+7) Remember G33 does not take into account G92
+8) Best thing to do is to just never use G92 ever
+9) Also G33 does not take into account Z-probe offset 
+10) Run distortion correction using G33
+11) Enable it and home it (M323 S1 P1)
+12) Test that it's working
+
+2.08 Pin
+0.92 Nozzel
+1.16
+
+1.83 Pin
+0.28 Nozzel
+1.55
