@@ -1,0 +1,14 @@
+X Max: 840
+Y Max: 1025
+Bed Left: 270
+Bed Front: 230
+HomeZ: 168
+Print Area Width: 300
+Print Area Depth: 300
+Print Area Height: 168
+
+Pin Reset: M340 P2 S2278
+Pin Up: M340 P2 S1500
+Pin Down: M340 P2 S611
+Fan On: M42 P16 S255
+Fan Off: M42 P16 S255
