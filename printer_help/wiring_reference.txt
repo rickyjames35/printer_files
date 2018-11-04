@@ -1,33 +1,34 @@
-#3D Printer Extruder Motor to Cat5 to Driver (1st Ethernet) //run on 12v
-Blue=GreeWhite=A-
-Red=Green=A+
-Green=BlueWhite=B+
+// 3D Printer Extruder Motor to Cat5 to Driver (1st Ethernet - Has sharpie line)
+// Extruder 1
+Blue = GreeWhite = A-
+Red = Green = A+
+Green = BlueWhite = B+
 Black=Blue=B-
+// Extruder 2
+Blue = OrangeWhite = A-
+Red = Orange = A+
+Green = BrownWhite = B+
+Black = Brown = B-
 
-#3D Printer Extruder Thermistor to Cat5 (1st Ethernet)
-White=Brown //doesn't matter which way they are wired, plug into temp1 on PCB, J2 (2nd from left)
-OtherWhite=BrownWhite
+// BLTouch (2nd Ethernet - No sharpie line)
+// https://www.geeetech.com/wiki/index.php/3DTouch_Auto_Leveling_Sensor
+3-Pin Red/Positive=Green // 5v
+3-Pin Brown/Negative=GreeWhite // both negatives are wired together on the touch sensor
+3-Pin Orange/Control=Blue // D5 on Arduino
+2-Pin Black/Negative=GreeWhite
+2-Pin White/Z-Min=Brown // A9 on Arduino
 
-#3D Printer Extruder Fan to Cat5 (1st Ethernet)
-Red/Positve=Orange //12v always on
-Black/Negative=OrangeWhite //Drain of MOSFTE, J5 (5th from left), left terminal (For some reason the fan is currently not working)
+// Themistors (2nd Ethernet - No sharpie line)
+// plug into temp1 on PCB, J2 (2nd from left)
+OrangeWhite = Themistor 1
+Orange = Themistor 1
+BrownWhite = Themistor 2
+BlueWhite = Themistor 2
 
-#Cat5 Left to Right (1st & 2nd Ethernet)
+// Cat5 Left to Right (1st & 2nd Ethernet)
 OrangeWhite, Orange, GreenWhite, Green, BlueWhite, Blue, BrownWhite, Brown 
 
-Blower Fan (2nd Ethernet)
-Red/Positve=Orange //12v
-Black/Negative=OrangeWhite //This is the wiring being controled from the MOSFET
-
-#BLTouch (2nd Ethernet)
-https://www.geeetech.com/wiki/index.php/3DTouch_Auto_Leveling_Sensor
-3-Pin Red/Positive=Green //5v
-3-Pin Brown/Negative=GreeWhite //both negatives are wired together on the touch sensor
-3-Pin Orange/Control=Blue //D5 on Arduino
-2-Pin Black/Negative=GreeWhite
-2-Pin White/Z-Min=Brown //A9 on Arduino
-
-#End Stops
+// End Stops
 X-Max, D2, Yellow=Common, Red=Negative, Blue=Positive
 X-Min, D3, Black=Common, White=Negative, Yellow=Positive
 Y-Max, D15, Black=Common, White=Negative, Red=Positive
@@ -35,12 +36,14 @@ Y-Min, D14, Green=Common, Blue=Negative, Red=Positive
 Z-Max, D19, Green=Common, Red=Negative, Black=Positive
 Z-Min, D18, Blue=Common, Yellow=Negative, Green=Positive
 
-#Arduino
+// Arduino
 D5 is touch sensor contoller
 D7 is speed controller for the spindel
  
 A9 is the Z-Probe
-D10 is the extruder heat
+D10 is the extruder 0 heat
+D9 is the extruder 1 heat
 D8 is the heat bed
-A13 is the extruder temp input
+A13 is the extruder 0 temp input
+A15 is the extruder 1 temp input
 A14 is the heat bed temp input
