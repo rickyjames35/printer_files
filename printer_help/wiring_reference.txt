@@ -18,6 +18,7 @@ Black = Brown = B-
 2-Pin Black/Negative=GreeWhite
 2-Pin White/Z-Min=Brown // A9 on Arduino
 
+// Note: The extruder themistors which are 100k themistors use 4.7k resistors.
 // Themistors (2nd Ethernet - No sharpie line)
 // plug into temp1 on PCB, J2 (2nd from left)
 OrangeWhite = Themistor 1
@@ -41,9 +42,20 @@ D5 is touch sensor contoller
 D7 is speed controller for the spindel
  
 A9 is the Z-Probe
-D10 is the extruder 0 heat
-D9 is the extruder 1 heat
+
+// Extruder 0
+D10 heat
+A13 temp input
+D26 step
+D28 direction
+D24 enable
+
+// Extruder 1
+D9 heat
+A15 temp input
+D36 step
+D34 direction
+D30 enable
+
 D8 is the heat bed
-A13 is the extruder 0 temp input
-A15 is the extruder 1 temp input
 A14 is the heat bed temp input
